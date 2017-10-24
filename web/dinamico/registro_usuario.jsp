@@ -158,8 +158,7 @@
                 <div class="col-sm-3">
                     <input type="hidden" id="hdestado" value="${objusu.estado}">
                     <select class="chosen-select form-control" id="cbxestado" name="estado" data-placeholder="Perfil..." required >
-                        <option value="">Seleccione</option>
-                        <option value="A">Activo</option>
+                        <option value="A" selected="true">Activo</option>
                         <option value="I">Inactivo</option>
                     </select>
                 </div>
