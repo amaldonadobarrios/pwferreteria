@@ -1,0 +1,1 @@
+SELECT * FROM `proveedor` WHERE razon_social like concat('%', ?, '%') or apellido_paterno like concat('%', ?, '%') or  apellido_materno like concat('%', ?, '%') or  nombres like concat('%', ?, '%')

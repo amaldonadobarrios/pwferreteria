@@ -1,0 +1,2 @@
+SELECT a.id_regla,a.id_insumo,a.cantidad,b.descripcion, b.marca,b.presentacion,b.medida
+FROM detalle_regla_produccion a, producto b where a.id_insumo=b.id_producto  and a.estado=1 and a.id_regla=? and a.id_producto=?; 

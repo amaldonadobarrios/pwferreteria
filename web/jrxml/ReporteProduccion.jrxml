@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produccion" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="estado" class="java.lang.Integer"/>
+	<parameter name="in_estado" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT a.id_produccion, a.fecha_reg, a.fecha,  a.usuario_reg, a.doc, a.numero,a.cantidad_reglas, a.estado ,b.id_producto, b.descripcion, b.marca, b.presentacion,b.medida, c.cantidad_insumos,c.cantidad_produccion,concat(d.apellido_paterno,' ', d.apellido_materno,' ',d.nombres) as usu FROM produccion a 
+inner join detalle_produccion c on  a.id_produccion=c.id_produccion
+left join producto b on c.id_producto=b.id_producto
+join usuario d on id_usuario=a.usuario_reg
+ where  a.id_produccion=$P{id} and a.estado=$P{estado};]]>
+	</queryString>
+	<field name="id_produccion" class="java.lang.Integer"/>
+	<field name="fecha_reg" class="java.sql.Timestamp"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="usuario_reg" class="java.lang.Integer"/>
+	<field name="doc" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="cantidad_reglas" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.Integer"/>
+	<field name="id_producto" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="marca" class="java.lang.String"/>
+	<field name="presentacion" class="java.lang.String"/>
+	<field name="medida" class="java.lang.String"/>
+	<field name="cantidad_insumos" class="java.lang.Integer"/>
+	<field name="cantidad_produccion" class="java.lang.Double"/>
+	<field name="usu" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="169" y="20" width="238" height="42"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PRODUCCION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{id_produccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha_reg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{in_estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="199" splitType="Stretch">
+			<textField>
+				<reportElement x="296" y="7" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="49" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="69" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cantidad_reglas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="82" y="7" width="187" height="20"/>
+				<textElement/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="27" width="187" height="20"/>
+				<textElement/>
+				<text><![CDATA[OPERADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="49" width="187" height="20"/>
+				<textElement/>
+				<text><![CDATA[NUMERO FORMATO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="69" width="187" height="20"/>
+				<textElement/>
+				<text><![CDATA[CANTIDAD DE PRODUCTOS FINALES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="296" y="29" width="247" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{usu}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="175" y="103" width="179" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[INSUMOS DESCONTADOS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="123" width="555" height="76"/>
+				<subreportParameter name="Subid_produccion">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="19" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="19" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="19" width="158" height="20"/>
+				<textElement/>
+				<text><![CDATA[Presentacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="19" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Producción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="19" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Medida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="0" width="189" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[PRODUCTOS FABRICADOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="206" y="0" width="158" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{presentacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="0" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{cantidad_produccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{medida}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="6" y="1" width="537" height="1"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

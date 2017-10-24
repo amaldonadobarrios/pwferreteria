@@ -1,0 +1,28 @@
+INSERT INTO usuario(
+usuario, 
+password, 
+dni, 
+apellido_paterno, 
+apellido_materno, 
+nombres, 
+telefono, 
+estado, 
+fecha_reg, 
+fecha_mod, 
+usuario_mod, 
+usuario_reg, 
+perfil_idperfil) 
+VALUES (
+?,  
+?,  
+?,  
+?,  
+?, 
+?,  
+?,  
+'A',  
+sysdate(), 
+null,  
+null, 
+?, 
+?) 

@@ -1,0 +1,240 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="model.dto.Perfil"%>
+<%@page import="model.dto.Usuario"%>
+<%@ page pageEncoding="UTF-8" %>
+<c:set var="usu" value="${sessionScope.usuario}" />
+<%
+    HttpSession sesion = request.getSession(true);
+    Usuario user = new Usuario();
+    user = (Usuario) sesion.getAttribute("usuario");
+    Perfil perf = new Perfil();
+    perf = (Perfil) user.getPerfil();
+    int id_perfil = (int) perf.getIdperfil();
+    String desc = (String) perf.getDescripcion();
+    String COD = (String) perf.getCodigo();
+%>
+
+<div id="sidebar" class="sidebar                  responsive                    ace-save-state">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('sidebar');
+        } catch (e) {
+        }
+    </script>
+
+    <ul class="nav nav-list">
+        <!--inicio-->
+        <% if (COD.equals("ADM")) {%>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon glyphicon glyphicon-cog"></i>
+                <span class="menu-text"> Administración </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="SMenu?action=pageRegistroUsuario">
+                        <i class="menu-icon glyphicon glyphicon-user"></i>
+                        Gestión de Usuarios
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="SMenu?action=pageRegistroCliente">
+                        <i class="menu-icon glyphicon glyphicon-briefcase"></i>
+                        Gestión de Clientes
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="SMenu?action=pageRegistroProveedor">
+                        <i class="menu-icon fa fa-industry "></i>
+                        Gestión de Proveedores
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="SMenu?action=pageRegistroReglasProduccion">
+                        <i class="menu-icon glyphicon glyphicon-wrench"></i>
+                        Gestión de Reglas de Producción
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="SMenu?action=pageRegistroProductos">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Gestión de Productos
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="SMenu?action=pageRegistroPrecioVenta">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Gestión del Precio de Venta
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <%   }
+        %>
+        <% if (COD.equals("ADM")|| COD.equals("SEC")) {%>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon glyphicon glyphicon-shopping-cart"></i>
+                <span class="menu-text"> Venta </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="SMenu?action=pageRegistroVenta">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Registrar una Venta
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <% if (COD.equals("ADM")) {%>
+                <li class="">
+                    <a href="SMenu?action=pageConsultarVenta">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Consultar una Venta
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <%   }
+        %>
+            </ul>
+        </li>
+         <%   }
+        %>
+        <% if (COD.equals("ADM")|| COD.equals("SEC")) {%>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-calculator"></i>
+                <span class="menu-text"> Compra </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="SMenu?action=pageRegistroCompra">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Registrar una Compra
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <% if (COD.equals("ADM")) {%>
+                <li class="">
+                    <a href="SMenu?action=pageConsultarCompra">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Consultar una Compra
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <%   }
+        %>
+            </ul>
+        </li>
+         <%   }
+        %>
+        <% if (COD.equals("ADM")) {%>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-cubes"></i>
+                <span class="menu-text"> Inventario </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="SMenu?action=pageConsultarInventario">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Consultar Inventario
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+         <%   }
+        %>
+        <% if (COD.equals("ADM")) {%>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-line-chart"></i>
+                <span class="menu-text"> Reportes </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="SMenu?action=pageReporteVentas">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Reporte Ventas
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="SMenu?action=pageReporteCompras">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Reporte Compras
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="SMenu?action=pageReporteGanancias">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Reporte Ganancias
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+         <%   }
+        %>
+        <% if (COD.equals("ADM")|| COD.equals("OPE")) {%>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-pencil-square-o"></i>
+                <span class="menu-text"> Produccion </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="SMenu?action=pagRegistroProduccion">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Registrar Producción
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <% if (COD.equals("ADM")) {%>
+                <li class="">
+                    <a href="SMenu?action=pageConsultarProduccion">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Consultar Produccion
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                 <%   }
+        %>
+            </ul>
+        </li>
+         <%   }
+        %>
+        <li class="">
+            <a href="SMenu?action=pageSalir">
+                <i class="menu-icon fa fa-close"></i>
+                <span class="menu-text"> Salir </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <!--fin-->
+
+    </ul> <!--/.nav-list--> 
+
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+</div>

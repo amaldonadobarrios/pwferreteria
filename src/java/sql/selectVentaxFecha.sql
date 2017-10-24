@@ -1,0 +1,1 @@
+SELECT * FROM comprobante_venta  where DATE_FORMAT(fecha_reg, "%d-%m-%Y")=? ORDER BY id_comprobante DESC;

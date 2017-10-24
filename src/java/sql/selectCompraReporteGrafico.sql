@@ -1,0 +1,1 @@
+select  DATE_FORMAT(fecha, "%m-%Y") as intervalo,SUM(total) as totalpormes from comprobante_compra  where fecha BETWEEN ? AND ? and estado='COMPRADO' group by DATE_FORMAT(fecha, "%m-%Y") order by fecha asc;

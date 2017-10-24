@@ -1,0 +1,1 @@
+SELECT * FROM `producto` WHERE `id_producto`=?

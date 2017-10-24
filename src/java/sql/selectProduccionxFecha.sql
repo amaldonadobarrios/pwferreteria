@@ -1,0 +1,2 @@
+SELECT z.fecha, z.doc,z.numero,z.cantidad_reglas,z.id_produccion,z.estado, concat(apellido_paterno,' ',apellido_materno,' ',nombres) as  operador , IF(z.estado = 1, 'ACTIVO', 'ELIMINADO') as  estado_det,z.fecha_reg FROM produccion z
+left join usuario u on z.usuario_reg=u.id_usuario where DATE_FORMAT(fecha, "%d-%m-%Y")=? order by z.id_produccion desc ;

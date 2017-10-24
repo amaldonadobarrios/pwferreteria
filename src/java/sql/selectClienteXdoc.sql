@@ -1,0 +1,1 @@
+SELECT * FROM `cliente` WHERE dni_ruc like concat('%', ?, '%')

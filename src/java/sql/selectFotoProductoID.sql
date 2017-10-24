@@ -1,0 +1,1 @@
+SELECT foto FROM producto where id_producto=? limit 1;
