@@ -365,7 +365,7 @@ public class ServCompra extends HttpServlet {
         }
         String respuesta = LogicCompra.getInstance().grabarCompra(compra);
         // verreporte(response,respuesta);
-        msg = "OK%" + "VALIDADO% " +respuesta ;
+        msg = respuesta ;
         HtmlUtil.getInstance().escrituraHTML(response, msg);
     }
 

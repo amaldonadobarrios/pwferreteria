@@ -68,19 +68,19 @@ public class ComprobanteCompraDaoImpl implements ComprobanteCompraDao {
                 ps.setDouble(11, compra.getNeto());
                 ps.setString(12, compra.getFecha());
                 ps.registerOutParameter(13, Types.INTEGER);
-                ps.registerOutParameter(14, Types.VARCHAR);
+                ps.registerOutParameter(14, Types.INTEGER);
                 ps.execute();
                 // devuelve el valor del parametro de salida del procedimiento
                 int resultado = ps.getInt(13);
-                String id_compra = ps.getString(14);
-                System.out.println("model.dao.impl.ComprobanteCompraDaoImpl.GrabarCompra()------ID COMPRA" + id_compra);
+                int id_compra = ps.getInt(14);
+                //System.out.println("model.dao.impl.ComprobanteCompraDaoImpl.GrabarCompra()------ID COMPRA" + id_compra);
                 if (resultado > 0) {
 //                    cn.commit();
                     logger.info("OK");
-                    mensaje = num + "%" + id_compra;
+                    mensaje = "OK%" + "VALIDADO% " + num + "%" + id_compra;
                 } else {
                     //cn.rollback();
-                    mensaje = "NO OK";
+                    mensaje = "ERROR%VUELVA A INTENTARLO%null%null";
                 }
 
             } catch (SQLException e) {

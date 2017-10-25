@@ -5,9 +5,20 @@
  */
 package control;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -38,6 +49,10 @@ public class ServReporte extends HttpServlet {
     Util uti = new Util();
     Connection cn = null;
     ConectaDB db = new ConectaDB();
+//Reporte Itext
+    private Font fuenteBlod = new Font(Font.FontFamily.COURIER, 10, Font.BOLD);
+    private Font fuenteNormal = new Font(Font.FontFamily.COURIER, 8, Font.NORMAL);
+    private Font fuenteItalic = new Font(Font.FontFamily.COURIER, 8, Font.ITALIC);
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,7 +67,8 @@ public class ServReporte extends HttpServlet {
             throws ServletException, IOException, SQLException, JRException, ClassNotFoundException {
         String evento = request.getParameter("evento");
         System.out.println("control.ServReporte.processRequest()" + evento);
-        if (evento.equals("venta")) {
+          try {
+            if (evento.equals("venta")) {
             String id = request.getParameter("num").trim();
             String estado = "";
             estado = request.getParameter("estado");
@@ -70,7 +86,12 @@ public class ServReporte extends HttpServlet {
         } else if (evento.equals("produccion")) {
             verreporteProduccion(request, response);
 
+        } 
+        } catch (Exception e) {
+         generarpdf(response);   
         }
+     
+       
 
     }
 
@@ -110,6 +131,7 @@ public class ServReporte extends HttpServlet {
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (SQLException ex) {
+            generarpdf(response);
             System.out.println("className.methodName()" + ex);
         } finally {
             cn.close();
@@ -206,6 +228,7 @@ public class ServReporte extends HttpServlet {
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (SQLException ex) {
+             generarpdf(response);
             System.out.println("className.methodName()" + ex);
         } finally {
             cn.close();
@@ -237,9 +260,70 @@ public class ServReporte extends HttpServlet {
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (SQLException ex) {
+            generarpdf(response);
             System.out.println("className.methodName()" + ex);
         } finally {
             cn.close();
         }
+    }
+
+    public void generarpdf(HttpServletResponse response) {
+        String rutaerror = getServletContext().getRealPath("/assets/images/errorsys.png");
+        try {
+            Document document = new Document(PageSize.A7, 36, 36, 10, 10);
+            // PdfWriter pw = PdfWriter.getInstance(document, new FileOutputStream(salida));
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            PdfWriter.getInstance(document, buffer);
+            document.open();
+            document.add(getHeader("SISTEMA COMERCIAL INVENTARIO Y PRODUCCION   NOVACEL"));
+            Image imagen = Image.getInstance(rutaerror);
+            imagen.scaleAbsolute(180, 180);
+            imagen.setAlignment(Element.ALIGN_CENTER);
+            document.add(imagen);
+            document.add(getInfo("ERROR INTERNO"));
+            document.add(getFooter("Ticsolutions.org"));
+            document.close();
+            DataOutputStream dataOutput = new DataOutputStream(response.getOutputStream());
+            byte[] bytes = buffer.toByteArray();
+            response.setContentLength(bytes.length);
+            for (int i = 0; i < bytes.length; i++) {
+                dataOutput.writeByte(bytes[i]);
+            }
+            dataOutput.flush();
+            dataOutput.close();
+            return;
+        } catch (Exception e) {
+        }
+
+    }
+
+    private Paragraph getHeader(String texto) {
+        Paragraph p = new Paragraph();
+        Chunk c = new Chunk();
+        p.setAlignment(Element.ALIGN_CENTER);
+        c.append(texto);
+        c.setFont(fuenteBlod);
+        p.add(c);
+        return p;
+    }
+
+    private Paragraph getInfo(String texto) {
+        Paragraph p = new Paragraph();
+        Chunk c = new Chunk();
+        p.setAlignment(Element.ALIGN_JUSTIFIED_ALL);
+        c.append(texto);
+        c.setFont(fuenteNormal);
+        p.add(c);
+        return p;
+    }
+
+    private Paragraph getFooter(String texto) {
+        Paragraph p = new Paragraph();
+        Chunk c = new Chunk();
+        p.setAlignment(Element.ALIGN_RIGHT);
+        c.append(texto);
+        c.setFont(fuenteNormal);
+        p.add(c);
+        return p;
     }
 }
