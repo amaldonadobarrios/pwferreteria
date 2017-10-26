@@ -476,3 +476,15 @@ set rpta =1;
 set id_compra=v_id_comprobante;
 END$$
 DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `strSplit`(cadena VARCHAR(1000), delimitador VARCHAR(12), posicion INT) RETURNS double
+BEGIN
+DECLARE num DECIMAL DEFAULT 0;
+DECLARE texto varchar(10000);
+set texto= ltrim(replace(substring(substring_index(cadena, delimitador, posicion), length(substring_index(cadena, delimitador, posicion - 1)) + 1), delimitador, ''));
+set num=CONVERT(texto, DECIMAL);
+RETURN num;
+END$$
+DELIMITER ;

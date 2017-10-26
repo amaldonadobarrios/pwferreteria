@@ -634,7 +634,7 @@ document.getElementById("cantidad").value = '';
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Subtotal</label>
                     <div class="col-sm-9">
-                        <input type="text" id="precio" name="precio" placeholder="Subtotal" class="col-xs-10 col-sm-9" />
+                        <input type="number" id="precio" name="precio" placeholder="Subtotal" min="0" class="col-xs-10 col-sm-9"step="any" />
                     </div>
                 </div>
                 <div class="form-group">
