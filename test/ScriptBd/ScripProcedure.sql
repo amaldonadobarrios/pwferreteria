@@ -488,3 +488,69 @@ set num=CONVERT(texto, DECIMAL);
 RETURN num;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GrabarCompra`(in numero varchar(45),
+in productox varchar(45), 
+in cantidadx varchar(45),
+in subtotalX varchar(45),
+in usuario int,
+in tipocomprobante varchar(45),
+in proveedor int,
+in registros int,
+in total DOUBLE,
+in igv DOUBLE,
+in neto DOUBLE,
+in fecha date,
+out rpta int,
+out id_compra int)
+BEGIN
+DECLARE v1 INT DEFAULT 1;
+DECLARE prod varchar(45) DEFAULT 0;
+DECLARE sub  varchar(45) DEFAULT 0;
+DECLARE cant  varchar(45) DEFAULT 0;
+DECLARE v_id_comprobante int;
+DECLARE v_existenciax DOUBLE default 0;
+
+/*Handler para error SQL*/ 
+DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+BEGIN 
+set rpta =0;
+set id_compra=0;
+ROLLBACK; 
+END; 
+
+/*Handler para error SQL*/ 
+DECLARE EXIT HANDLER FOR SQLWARNING 
+BEGIN 
+set rpta =0;
+set id_compra=0;
+ROLLBACK; 
+END; 
+
+/*Inicia transaccion*/ 
+START TRANSACTION; 
+/*Primer INSERT datos ACTA*/ 
+INSERT INTO comprobante_compra (numero_comprobante,tipo,fecha,id_proveedor,estado,id_usuario,fecha_reg,total,igv,neto,items) VALUES(numero,tipocomprobante,fecha,proveedor,'COMPRADO',usuario,now(),FORMAT(total,2),FORMAT(igv, 2),FORMAT(neto, 2),registros);
+SET v_id_comprobante =(SELECT LAST_INSERT_ID());
+/*SECOND INSERT datos ACTA*/ 
+WHILE v1 <= registros DO
+SET prod = (SELECT strSplit (productox, '@', v1));
+SET sub = (SELECT strSplit (subtotalX, '@', v1));
+SET cant = (SELECT strSplit (cantidadx, '@', v1));
+SET v_existenciax = (SELECT  existencia FROM producto where  id_producto = prod);
+if (v_existenciax is null) then
+set v_existenciax=0;
+end if;
+UPDATE producto SET existencia = (v_existenciax +cant), fecha_mod = now(), usuario_mod = usuario WHERE id_producto = prod;
+INSERT INTO detalle_comprobante_compra(numero_detalle,numero_comprobante,id_producto,cantidad,subtotal,id_usuario,fecha_reg,estado,id_comprobante)VALUES(v1,numero,prod,cant, sub,usuario,now(),'COMPRADO',v_id_comprobante);    
+    SET v1 = v1+1;
+  END WHILE;
+
+/*Fin de transaccion*/ 
+COMMIT; 
+/*Mandamos 0 si todo salio bien*/ 
+set rpta =1;
+set id_compra=v_id_comprobante;
+END$$
+DELIMITER ;
