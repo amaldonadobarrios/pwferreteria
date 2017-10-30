@@ -82,9 +82,9 @@
                                         <td class="center">  ${loop.count} </td>
                                         <td> ${venta.numero_comprobante}  ${venta.fecha_reg}</td>
                                         <td> ${venta.cantProductos} </td>
-                                        <td> ${venta.neto} </td>
-                                        <td> ${venta.igv} </td>
-                                        <td> ${venta.total} </td>
+                                        <td> ${venta.strneto} </td>
+                                        <td> ${venta.strigv} </td>
+                                        <td> ${venta.strtotal} </td>
                                         <td>${venta.estado}
                                             <div class="hidden-sm hidden-xs action-buttons">
                                                 <a class="blue" href="ServReporte?evento=venta&estado=${venta.estado}&num=+${venta.numero_comprobante}" target="_blank">

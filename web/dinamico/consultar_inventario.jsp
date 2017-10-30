@@ -78,7 +78,7 @@
                                         <td> ${inventario.presentacion} </td>
                                         <td> ${inventario.medida} </td>
                                         <td> ${inventario.prod_insu} </td>
-                                        <td>${inventario.existencia}</td>
+                                        <td>${inventario.strexistencia}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

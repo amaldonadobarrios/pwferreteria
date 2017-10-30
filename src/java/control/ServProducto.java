@@ -252,7 +252,7 @@ public class ServProducto extends HttpServlet {
                     encod = null;
                 }
                 String respuesta=null;
-                respuesta=encod+"%"+pro.getPv1()+"%"+pro.getPv2()+"%"+pro.getPv3()+"%"+pro.getExistencia();
+                respuesta=encod+"%"+pro.getPv1()+"%"+pro.getPv2()+"%"+pro.getPv3()+"%"+pro.getStrexistencia();
                 HtmlUtil.getInstance().escrituraHTML(response, respuesta); 
             }
 

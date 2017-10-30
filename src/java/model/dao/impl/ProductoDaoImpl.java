@@ -393,6 +393,11 @@ public class ProductoDaoImpl implements ProductoDao {
                         temp.setMarca(rs.getString("marca"));
                         temp.setProd_insu(rs.getString("producto_insumo"));
                         temp.setExistencia(rs.getDouble("existencia"));
+                        
+                       String valorexi =  rs.getString("existencia");
+                        temp.setStrexistencia(valorexi);
+                        
+                        System.out.println("model.dao.impl.ProductoDaoImpl.getProductosSinfoto() EXISTENCIAS: "+rs.getDouble("existencia")  +"valorexi " + valorexi    );
                         listTemp.add(temp);
 
                     }

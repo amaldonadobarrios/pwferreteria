@@ -182,6 +182,9 @@ public class ComprobanteCompraDaoImpl implements ComprobanteCompraDao {
                         temp.setIgv(rs.getDouble("igv"));
                         temp.setNeto(rs.getDouble("neto"));
                         temp.setTotal(rs.getDouble("total"));
+                        temp.setStrigv(rs.getString("igv"));
+                        temp.setStrneto(rs.getString("neto"));
+                        temp.setStrtotal(rs.getString("total"));
                         listTemp.add(temp);
                     }
                 }
@@ -294,6 +297,9 @@ public class ComprobanteCompraDaoImpl implements ComprobanteCompraDao {
                         temp.setIgv(rs.getDouble("igv"));
                         temp.setNeto(rs.getDouble("neto"));
                         temp.setTotal(rs.getDouble("total"));
+                        temp.setStrigv(rs.getString("igv"));
+                        temp.setStrneto(rs.getString("neto"));
+                        temp.setStrtotal(rs.getString("total"));
                         listTemp.add(temp);
                     }
                 }
@@ -354,6 +360,9 @@ public class ComprobanteCompraDaoImpl implements ComprobanteCompraDao {
                         temp.setIgv(rs.getDouble("igv"));
                         temp.setNeto(rs.getDouble("neto"));
                         temp.setTotal(rs.getDouble("total"));
+                        temp.setStrigv(rs.getString("igv"));
+                        temp.setStrneto(rs.getString("neto"));
+                        temp.setStrtotal(rs.getString("total"));
                         listTemp.add(temp);
                     }
                 }

@@ -29,6 +29,33 @@ public class ComprobanteCompra {
     private double total;
     private double igv;
     private double neto;
+    private String strtotal;
+    private String strigv;
+    private String strneto;
+
+    public String getStrtotal() {
+        return strtotal;
+    }
+
+    public void setStrtotal(String strtotal) {
+        this.strtotal = strtotal;
+    }
+
+    public String getStrigv() {
+        return strigv;
+    }
+
+    public void setStrigv(String strigv) {
+        this.strigv = strigv;
+    }
+
+    public String getStrneto() {
+        return strneto;
+    }
+
+    public void setStrneto(String strneto) {
+        this.strneto = strneto;
+    }
 
     public int getId_comprobante() {
         return id_comprobante;

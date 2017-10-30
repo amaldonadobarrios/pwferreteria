@@ -12,7 +12,8 @@ package model.dto;
 public class Ganancia {
     private String fecha;
     private double ganancia;
-
+    private String strganancia;
+    
     public String getFecha() {
         return fecha;
     }
@@ -32,6 +33,14 @@ public class Ganancia {
     @Override
     public String toString() {
         return "ganancia{" + "fecha=" + fecha + ", ganancia=" + ganancia + '}';
+    }
+
+    public String getStrganancia() {
+        return strganancia;
+    }
+
+    public void setStrganancia(String strganancia) {
+        this.strganancia = strganancia;
     }
     
 }

@@ -9,7 +9,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author Alexander
@@ -34,7 +33,17 @@ public class Producto {
     double pv2;
     double pv3;
     double existencia;
-    
+
+    String strexistencia;
+
+    public String getStrexistencia() {
+        return strexistencia;
+    }
+
+    public void setStrexistencia(String strexistencia) {
+        this.strexistencia = strexistencia;
+    }
+
     public Producto() {
     }
 
@@ -142,8 +151,6 @@ public class Producto {
         this.prod_insu = prod_insu;
     }
 
- 
-
     public String getType() {
         return type;
     }
@@ -202,6 +209,7 @@ public class Producto {
         temp.setPv2(rs.getDouble("pv2"));
         temp.setPv3(rs.getDouble("pv3"));
         temp.setExistencia(rs.getDouble("existencia"));
+        temp.setStrexistencia(rs.getString("existencia"));
 //        Encoder code=Base64.getEncoder();
 //        String encod=code.encodeToString(rs.getBytes("foto"));
 //        temp.setStringBase64(encod);
@@ -214,5 +222,4 @@ public class Producto {
         return "Producto{" + "id_producto=" + id_producto + ", descripcion=" + descripcion + ", marca=" + marca + ", presentacion=" + presentacion + ", medida=" + medida + ", foto=" + foto + ", estado=" + estado + ", fecha_reg=" + fecha_reg + ", fecha_mod=" + fecha_mod + ", usuario_reg=" + usuario_reg + ", usuario_mod=" + usuario_mod + ", StringBase64=" + StringBase64 + ", type=" + type + ", prod_insu=" + prod_insu + ", pv1=" + pv1 + ", pv2=" + pv2 + ", pv3=" + pv3 + ", existencia=" + existencia + '}';
     }
 
-    
 }

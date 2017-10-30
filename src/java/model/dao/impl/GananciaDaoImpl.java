@@ -54,6 +54,7 @@ public class GananciaDaoImpl implements GananciaDao{
                         temp = new Ganancia();
                         temp.setFecha(rs.getString(1));
                         temp.setGanancia(rs.getDouble(2));
+                        temp.setStrganancia(rs.getString(2));
                         listTemp.add(temp);
                     }
                 }
@@ -109,6 +110,7 @@ public class GananciaDaoImpl implements GananciaDao{
                         temp = new Ganancia();
                         temp.setFecha(rs.getString(1));
                         temp.setGanancia(rs.getDouble(2));
+                        temp.setStrganancia(rs.getString(2));
                         listTemp.add(temp);
                     }
                 }

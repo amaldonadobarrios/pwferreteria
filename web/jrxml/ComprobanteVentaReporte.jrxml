@@ -11,7 +11,7 @@
 	<parameter name="in_estado" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.Object"/>
 	<queryString>
-		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, a.fecha_reg, a.id_usuario, a.estado, a.id_cliente,FORMAT(a.total,2),a.igv,a.neto,b.id_producto, b.cantidad,FORMAT(b.precio, 2), b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
+		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, a.fecha_reg, a.id_usuario, a.estado, a.id_cliente,FORMAT(a.total,2),a.igv,a.neto,b.id_producto, b.cantidad ,FORMAT(b.precio, 2), b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
 d.descripcion,d.marca,d.presentacion,d.medida
 FROM comprobante_venta a 
 INNER JOIN detalle_comprobante_venta b on (a.numero_comprobante = b.numero_comprobante) and (a.id_comprobante=b.id_comprobante)
@@ -268,17 +268,6 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 				<reportElement x="0" y="13" width="456" height="1"/>
 			</line>
 			<textField>
-				<reportElement x="0" y="0" width="60" height="14"/>
-				<box>
-					<leftPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="61" y="0" width="239" height="14"/>
 				<box>
 					<rightPen lineWidth="1.0"/>
@@ -308,6 +297,17 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression class="java.lang.Double"><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="60" height="14"/>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

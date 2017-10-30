@@ -130,9 +130,9 @@
                                         <td class="center">  ${loop.count} </td>
                                         <td> ${compra.numero_comprobante}  ${compra.fecha}</td>
                                         <td> ${compra.cantProductos} </td>
-                                        <td> ${compra.neto} </td>
-                                        <td> ${compra.igv} </td>
-                                        <td> ${compra.total} </td>
+                                        <td> ${compra.strneto} </td>
+                                        <td> ${compra.strigv} </td>
+                                        <td> ${compra.strtotal} </td>
                                         <td>${compra.estado}
                                             <div class="hidden-sm hidden-xs action-buttons">
                                                 <a class="blue" href="ServReporte?evento=compra&estado=${compra.estado}&num=+${compra.numero_comprobante}+&id_compra=${compra.id_comprobante}" target="_blank">

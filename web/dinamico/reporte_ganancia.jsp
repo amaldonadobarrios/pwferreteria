@@ -82,7 +82,7 @@
                                     <tr>
                                         <td class="center">  ${loop.count} </td>
                                         <td> ${ganancia.fecha}  </td>
-                                        <td> ${ganancia.ganancia} </td>
+                                        <td> ${ganancia.strganancia} </td>
                                         <td>  </td>
                                         <td>  </td>
                                         <td>  </td>
@@ -126,7 +126,7 @@
                                     <tr>
                                         <td class="center">  ${loop.count} </td>
                                          <td> ${ganancia.fecha}  </td>
-                                        <td> ${ganancia.ganancia} </td>
+                                        <td> ${ganancia.strganancia} </td>
                                         <td>  </td>
                                         <td>  </td>
                                         <td>  </td>

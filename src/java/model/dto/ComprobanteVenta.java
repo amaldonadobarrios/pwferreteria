@@ -12,10 +12,10 @@ import java.sql.Date;
  * @author Alexander
  */
 public class ComprobanteVenta {
-    
+
     public ComprobanteVenta() {
     }
-    
+
     public static ComprobanteVenta getInstance() {
         return ComprobanteVentaHolder.INSTANCE;
     }
@@ -92,8 +92,6 @@ public class ComprobanteVenta {
         this.numero_detalle = numero_detalle;
     }
 
-  
-
     public int getCantProductos() {
         return cantProductos;
     }
@@ -149,14 +147,13 @@ public class ComprobanteVenta {
     public void setNeto(double neto) {
         this.neto = neto;
     }
-    
-    
+
     private static class ComprobanteVentaHolder {
 
         private static final ComprobanteVenta INSTANCE = new ComprobanteVenta();
     }
-    
-    private int  id_comprobante;
+
+    private int id_comprobante;
     private String numero_comprobante;
     private String tipo;
     private Date fecha;
@@ -172,9 +169,45 @@ public class ComprobanteVenta {
     private double total;
     private double igv;
     private double neto;
+    private String strtotal;
+    private String strigv;
+    private String strneto;
+    private String strcantidad;
+
+    public String getStrcantidad() {
+        return strcantidad;
+    }
+
+    public void setStrcantidad(String strcantidad) {
+        this.strcantidad = strcantidad;
+    }
+
+    public String getStrtotal() {
+        return strtotal;
+    }
+
+    public void setStrtotal(String strtotal) {
+        this.strtotal = strtotal;
+    }
+
+    public String getStrigv() {
+        return strigv;
+    }
+
+    public void setStrigv(String strigv) {
+        this.strigv = strigv;
+    }
+
+    public String getStrneto() {
+        return strneto;
+    }
+
+    public void setStrneto(String strneto) {
+        this.strneto = strneto;
+    }
 
     @Override
     public String toString() {
         return "ComprobanteVenta{" + "id_comprobante=" + id_comprobante + ", numero_comprobante=" + numero_comprobante + ", tipo=" + tipo + ", fecha=" + fecha + ", id_cliente=" + id_cliente + ", estado=" + estado + ", id_usuario=" + id_usuario + ", fecha_reg=" + fecha_reg + ", numero_detalle=" + numero_detalle + ", id_producto=" + id_producto + ", cantidad=" + cantidad + ", precio=" + precio + ", cantProductos=" + cantProductos + ", total=" + total + ", igv=" + igv + ", neto=" + neto + '}';
-    }  
+    }
 }
