@@ -191,6 +191,7 @@ public class ServProduccion extends HttpServlet {
         reglas.setPresentacion(insumo.getPresentacion());
         reglas.setMedida(insumo.getMedida());
         reglas.setCantidad(Double.parseDouble(cantidad_insumo));
+        reglas.setSrtcantidad(cantidad_insumo);
         boolean validacion = false;
         String msg = null;
         String respuesta = null;
@@ -339,6 +340,7 @@ public class ServProduccion extends HttpServlet {
         String cantidad = request.getParameter("cantidad");
         ListaProduccion productofinal = LogicProduccion.getInstance().buscarRegla(Integer.parseInt(id_regla));
         productofinal.setCantidad_produccion(Double.parseDouble(cantidad));
+        productofinal.setSrtcantidad_produccion(cantidad);
         boolean validacion = false;
         String msg = null;
         String respuesta = null;

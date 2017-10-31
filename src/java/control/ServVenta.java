@@ -272,6 +272,8 @@ public class ServVenta extends HttpServlet {
         objlista.setCantidad(Double.parseDouble(cantidad));
         objlista.setId_producto(id_producto);
         objlista.setSubtotal((Double.parseDouble(cantidad) * Double.parseDouble(precio)));
+        objlista.setSrtcantidad(cantidad);
+        objlista.setSrtsubtotal(String.valueOf(Double.parseDouble(cantidad) * Double.parseDouble(precio)));
         boolean validacion = false;
         String msg = null;
         double subtotal = 0;

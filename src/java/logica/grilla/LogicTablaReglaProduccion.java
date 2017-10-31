@@ -91,7 +91,7 @@ public class LogicTablaReglaProduccion {
                 str.append(fila.getMedida());
                 str.append(FIN_TD);
                 str.append(INI_TD);
-                str.append(fila.getCantidad_produccion());
+                str.append(fila.getSrtcantidad_produccion());
                 str.append(FIN_TD);
                 str.append(INI_TD);
                 str.append("<input type=\"button\" value=\"Eliminar\" onclick=\"fneliminarItem('" + i + "');\"");
@@ -166,7 +166,7 @@ public class LogicTablaReglaProduccion {
                 str.append(fila.getMedida());
                 str.append(FIN_TD);
                 str.append(INI_TD);
-                str.append(fila.getCantidad());
+                str.append(fila.getSrtcantidad());
                 str.append(FIN_TD);
                 str.append(INI_TD);
                 str.append("<input type=\"button\" value=\"Eliminar\" onclick=\"fneliminarItem('" + i + "');\"");
@@ -236,7 +236,7 @@ public class LogicTablaReglaProduccion {
                 str.append(fila.getMedida());
                 str.append(FIN_TD);
                 str.append(INI_TD);
-                str.append(fila.getCantidad());
+                str.append(fila.getSrtcantidad());
                 str.append(FIN_TD);
 //				str.append(INI_TD);	str.append( "<input type=\"button\" value=\"Seleccionar\" onclick=\"fnSeleccionarCliente('"+fila.getRazonSocial()+"','"+fila.getApellidoPaterno()+"','"+fila.getApellidoMaterno()+"','"+fila.getNombres()+"','"+fila.getDniRuc()+"','"+fila.getDireccion()+"','"+fila.getNaturalezaCliente()+"','"+fila.getIdTipoCliente()+"','"+fila.getIdCliente()+"')\" />");		str.append(FIN_TD);
                 str.append(FINI_TR);

@@ -17,9 +17,27 @@ public class ListaVenta {
     private String id_cliente;
     private String id_producto;
     private double subtotal;
+    private String srtsubtotal;
     private String descripcion;
     private String marca;
     private String presentacion;
+    private String srtcantidad;
+
+    public String getSrtsubtotal() {
+        return srtsubtotal;
+    }
+
+    public void setSrtsubtotal(String srtsubtotal) {
+        this.srtsubtotal = srtsubtotal;
+    }
+
+    public String getSrtcantidad() {
+        return srtcantidad;
+    }
+
+    public void setSrtcantidad(String srtcantidad) {
+        this.srtcantidad = srtcantidad;
+    }
     
     public String getIdtipocliente() {
         return idtipocliente;

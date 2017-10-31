@@ -270,6 +270,7 @@ public class ProduccionDaoImpl implements ProduccionDao {
                         temp.setId_regla(rs.getInt("id_regla"));
                         temp.setId_insumo(rs.getInt("id_insumo"));
                         temp.setCantidad(rs.getDouble("cantidad"));
+                        temp.setSrtcantidad(rs.getString("cantidad"));
                         temp.setDescripcion(rs.getString("descripcion"));
                         temp.setMarca(rs.getString("marca"));
                         temp.setPresentacion(rs.getString("presentacion"));

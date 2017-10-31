@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobante" pageWidth="496" pageHeight="651" columnWidth="456" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.9487171000000139"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="79"/>
 	<parameter name="tipo_documento" class="java.lang.String"/>
 	<parameter name="tipo_comprobante" class="java.lang.String"/>
 	<parameter name="id" class="java.lang.String">
@@ -13,7 +13,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT a.id_comprobante,b.id_comprobante as coprobanteb ,a.numero_comprobante,a.tipo, a.fecha, a.id_usuario, a.estado, a.id_proveedor,FORMAT(a.total,2),a.igv,a.neto,b.id_producto, b.cantidad,b.subtotal, c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
+		<![CDATA[SELECT a.id_comprobante,b.id_comprobante as coprobanteb ,a.numero_comprobante,a.tipo,  DATE_FORMAT(a.fecha, "%d/%m/%Y"), a.id_usuario, a.estado, a.id_proveedor,FORMAT(a.total,2),FORMAT(a.igv,2),FORMAT(a.neto,2),b.id_producto, FORMAT(b.cantidad,2),FORMAT(b.subtotal,2), c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
 d.descripcion,d.marca,d.presentacion,d.medida
 FROM (SELECT * FROM comprobante_compra where id_comprobante=$P{id_compra} and estado=$P{in_estado}) a
 INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
@@ -24,16 +24,16 @@ INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
 	<field name="coprobanteb" class="java.lang.Integer"/>
 	<field name="numero_comprobante" class="java.lang.String"/>
 	<field name="tipo" class="java.lang.String"/>
-	<field name="fecha" class="java.sql.Date"/>
+	<field name="DATE_FORMAT(a.fecha, &quot;%d/%m/%Y&quot;)" class="java.lang.String"/>
 	<field name="id_usuario" class="java.lang.Integer"/>
 	<field name="estado" class="java.lang.String"/>
 	<field name="id_proveedor" class="java.lang.Integer"/>
 	<field name="FORMAT(a.total,2)" class="java.lang.String"/>
-	<field name="igv" class="java.lang.Double"/>
-	<field name="neto" class="java.lang.Double"/>
+	<field name="FORMAT(a.igv,2)" class="java.lang.String"/>
+	<field name="FORMAT(a.neto,2)" class="java.lang.String"/>
 	<field name="id_producto" class="java.lang.Integer"/>
-	<field name="cantidad" class="java.lang.Double"/>
-	<field name="subtotal" class="java.lang.Double"/>
+	<field name="FORMAT(b.cantidad,2)" class="java.lang.String"/>
+	<field name="FORMAT(b.subtotal,2)" class="java.lang.String"/>
 	<field name="apellido_paterno" class="java.lang.String"/>
 	<field name="apellido_materno" class="java.lang.String"/>
 	<field name="nombres" class="java.lang.String"/>
@@ -44,15 +44,6 @@ INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
 	<field name="marca" class="java.lang.String"/>
 	<field name="presentacion" class="java.lang.String"/>
 	<field name="medida" class="java.lang.String"/>
-	<variable name="subtotal_1" class="java.lang.Double" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[$F{subtotal}]]></variableExpression>
-	</variable>
-	<variable name="FORMAT((b.cantidad*b.precio),2)_1" class="java.lang.Integer" calculation="DistinctCount">
-		<variableExpression><![CDATA[]]></variableExpression>
-	</variable>
-	<variable name="subtotal_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{subtotal}]]></variableExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -159,18 +150,16 @@ INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dni_ruc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="348" y="93" width="104" height="25"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecha}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="237" y="49" width="215" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="348" y="93" width="104" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATE_FORMAT(a.fecha, "%d/%m/%Y")}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -224,17 +213,6 @@ INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
 				<reportElement x="0" y="13" width="456" height="1"/>
 			</line>
 			<textField>
-				<reportElement x="0" y="0" width="60" height="14"/>
-				<box>
-					<leftPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="61" y="0" width="239" height="14"/>
 				<box>
 					<rightPen lineWidth="1.0"/>
@@ -245,16 +223,26 @@ INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}+" "+$F{marca} +" "+ $F{presentacion}+" "+ $F{medida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="379" y="0" width="77" height="14"/>
+				<reportElement x="0" y="0" width="60" height="13"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{subtotal}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(b.cantidad,2)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="1" width="77" height="13"/>
+				<box>
+					<leftPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(b.subtotal,2)}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -329,28 +317,6 @@ INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
 				</textElement>
 				<text><![CDATA[Igv]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="379" y="1" width="77" height="10"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{neto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="379" y="11" width="77" height="10"/>
-				<box>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{igv}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="5" y="2" width="56" height="19"/>
 				<textElement/>
@@ -364,16 +330,40 @@ INNER JOIN detalle_comprobante_compra b on (a.id_comprobante=b.id_comprobante)
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="379" y="21" width="77" height="12"/>
+				<reportElement x="379" y="22" width="77" height="11"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(a.total,2)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="1" width="77" height="10"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(a.neto,2)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="12" width="77" height="10"/>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(a.igv,2)}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

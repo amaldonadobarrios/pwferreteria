@@ -17,6 +17,7 @@ public class ListaReglaProduccion {
     private String presentacion;
     private String medida;
     private double cantidad;
+    private String srtcantidad;
     private int nro_insumos;
     private int id_regla;
     private int id_usuario;
@@ -30,6 +31,14 @@ public class ListaReglaProduccion {
     private String fecha;
     private String documento;
     private String numero_doc;
+
+    public String getSrtcantidad() {
+        return srtcantidad;
+    }
+
+    public void setSrtcantidad(String srtcantidad) {
+        this.srtcantidad = srtcantidad;
+    }
 
     
     public int getId_producto() {

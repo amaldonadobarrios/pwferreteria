@@ -10,14 +10,24 @@ package model.dto;
  * @author 31424836
  */
 public class ListaProduccion {
-   private int id_regla;
-   private int id_producto;
-   private int nro_insumos;
-   private String descripcion;
-   private String marca;
-   private String presentacion;
-   private String medida;
-   private double cantidad_produccion;
+
+    private int id_regla;
+    private int id_producto;
+    private int nro_insumos;
+    private String descripcion;
+    private String marca;
+    private String presentacion;
+    private String medida;
+    private double cantidad_produccion;
+    private String srtcantidad_produccion;
+
+    public String getSrtcantidad_produccion() {
+        return srtcantidad_produccion;
+    }
+
+    public void setSrtcantidad_produccion(String srtcantidad_produccion) {
+        this.srtcantidad_produccion = srtcantidad_produccion;
+    }
 
     public int getId_regla() {
         return id_regla;
@@ -87,6 +97,5 @@ public class ListaProduccion {
     public String toString() {
         return "ListaProduccion{" + "id_regla=" + id_regla + ", id_producto=" + id_producto + ", nro_insumos=" + nro_insumos + ", descripcion=" + descripcion + ", marca=" + marca + ", presentacion=" + presentacion + ", medida=" + medida + ", cantidad_produccion=" + cantidad_produccion + '}';
     }
-   
-   
+
 }

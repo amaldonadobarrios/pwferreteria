@@ -11,8 +11,8 @@
 	<parameter name="in_estado" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.Object"/>
 	<queryString>
-		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, a.fecha_reg, a.id_usuario, a.estado, a.id_cliente,FORMAT(a.total,2),a.igv,a.neto,b.id_producto, b.cantidad ,FORMAT(b.precio, 2), b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
-d.descripcion,d.marca,d.presentacion,d.medida
+		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, DATE_FORMAT(a.fecha_reg, "%d/%m/%Y"), a.id_usuario, a.estado, a.id_cliente,FORMAT(a.total,2),FORMAT(a.igv,2),FORMAT(a.neto,2),b.id_producto, FORMAT(b.cantidad,2) ,FORMAT(b.precio, 2),b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
+d.descripcion,d.marca,d.presentacion,d.medida, cast(b.cantidad*b.precio as decimal) as srtsubtotal
 FROM comprobante_venta a 
 INNER JOIN detalle_comprobante_venta b on (a.numero_comprobante = b.numero_comprobante) and (a.id_comprobante=b.id_comprobante)
 LEFT JOIN cliente c on (a.id_cliente = c.id_cliente)
@@ -21,15 +21,15 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 	<field name="id_comprobante" class="java.lang.Integer"/>
 	<field name="numero_comprobante" class="java.lang.String"/>
 	<field name="tipo" class="java.lang.String"/>
-	<field name="fecha_reg" class="java.sql.Timestamp"/>
+	<field name="DATE_FORMAT(a.fecha_reg, &quot;%d/%m/%Y&quot;)" class="java.lang.String"/>
 	<field name="id_usuario" class="java.lang.Integer"/>
 	<field name="estado" class="java.lang.String"/>
 	<field name="id_cliente" class="java.lang.Integer"/>
 	<field name="FORMAT(a.total,2)" class="java.lang.String"/>
-	<field name="igv" class="java.lang.Double"/>
-	<field name="neto" class="java.lang.Double"/>
+	<field name="FORMAT(a.igv,2)" class="java.lang.String"/>
+	<field name="FORMAT(a.neto,2)" class="java.lang.String"/>
 	<field name="id_producto" class="java.lang.Integer"/>
-	<field name="cantidad" class="java.lang.Double"/>
+	<field name="FORMAT(b.cantidad,2)" class="java.lang.String"/>
 	<field name="FORMAT(b.precio, 2)" class="java.lang.String"/>
 	<field name="subtotal" class="java.lang.Double"/>
 	<field name="apellido_paterno" class="java.lang.String"/>
@@ -42,15 +42,8 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 	<field name="marca" class="java.lang.String"/>
 	<field name="presentacion" class="java.lang.String"/>
 	<field name="medida" class="java.lang.String"/>
-	<variable name="subtotal_1" class="java.lang.Double" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[$F{subtotal}]]></variableExpression>
-	</variable>
-	<variable name="FORMAT((b.cantidad*b.precio),2)_1" class="java.lang.Integer" calculation="DistinctCount">
-		<variableExpression><![CDATA[]]></variableExpression>
-	</variable>
-	<variable name="subtotal_2" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{subtotal}]]></variableExpression>
-	</variable>
+	<field name="srtsubtotal" class="java.math.BigDecimal"/>
+	<variable name="FORMAT((b.cantidad*b.precio),2)_1" class="java.lang.Integer" calculation="DistinctCount"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -194,11 +187,6 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{razon_social}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="348" y="93" width="104" height="25"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha_reg}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="237" y="26" width="215" height="23"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
@@ -216,6 +204,11 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 				<reportElement x="3" y="3" width="68" height="46"/>
 				<imageExpression class="java.lang.String"><![CDATA[$P{logo}]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="348" y="93" width="104" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATE_FORMAT(a.fecha_reg, "%d/%m/%Y")}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -288,26 +281,26 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(b.precio, 2)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="379" y="0" width="77" height="13"/>
+				<reportElement x="0" y="-1" width="60" height="14"/>
 				<box>
-					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{subtotal}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="1" width="60" height="14"/>
-				<box>
-					<leftPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{cantidad}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(b.cantidad,2)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="0" width="77" height="13"/>
+				<box>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{srtsubtotal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -382,28 +375,6 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 				</textElement>
 				<text><![CDATA[Igv]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="379" y="1" width="77" height="10"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{neto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="379" y="11" width="77" height="10"/>
-				<box>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{igv}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="5" y="2" width="56" height="19"/>
 				<textElement/>
@@ -423,10 +394,33 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(a.total,2)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="11" width="77" height="11"/>
+				<box>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(a.igv,2)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="1" width="77" height="10"/>
+				<box>
+					<topPen lineWidth="1.25" lineStyle="Solid"/>
+					<leftPen lineWidth="1.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.25" lineStyle="Solid"/>
+					<rightPen lineWidth="1.25" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(a.neto,2)}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
