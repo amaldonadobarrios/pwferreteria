@@ -373,8 +373,8 @@ public class ProductoDaoImpl implements ProductoDao {
         if (cn != null) {
 
             try {
-                 CallableStatement ps = cn.prepareCall(sqlResult);
-                  ResultSet rs = ps.executeQuery();
+                CallableStatement ps = cn.prepareCall(sqlResult);
+                ResultSet rs = ps.executeQuery();
 
                 if (rs.next()) {
 
@@ -393,11 +393,7 @@ public class ProductoDaoImpl implements ProductoDao {
                         temp.setMarca(rs.getString("marca"));
                         temp.setProd_insu(rs.getString("producto_insumo"));
                         temp.setExistencia(rs.getDouble("existencia"));
-                        
-                       String valorexi =  rs.getString("existencia");
-                        temp.setStrexistencia(valorexi);
-                        
-                        System.out.println("model.dao.impl.ProductoDaoImpl.getProductosSinfoto() EXISTENCIAS: "+rs.getDouble("existencia")  +"valorexi " + valorexi    );
+                        temp.setStrexistencia(rs.getString("existencia"));
                         listTemp.add(temp);
 
                     }
@@ -595,7 +591,7 @@ public class ProductoDaoImpl implements ProductoDao {
             try {
                 PreparedStatement ps = cn.prepareStatement(sqlResult);
                 for (int i = 1; i < 5; i++) {
-                    ps.setString(i,parametro.toUpperCase()); 
+                    ps.setString(i, parametro.toUpperCase());
                 }
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
@@ -615,12 +611,12 @@ public class ProductoDaoImpl implements ProductoDao {
                         temp.setMedida(rs.getString("medida"));
                         temp.setProd_insu(rs.getString("producto_insumo"));
                         temp.setFoto(rs.getBytes("foto"));
-                        if (temp.getFoto()!=null) {
-                         temp.setStringBase64(code.encodeToString(temp.getFoto()));  
-                         temp.setFoto(null);
+                        if (temp.getFoto() != null) {
+                            temp.setStringBase64(code.encodeToString(temp.getFoto()));
+                            temp.setFoto(null);
                         }
                         listTemp.add(temp);
-                        temp=null;
+                        temp = null;
 
                     }
                 }

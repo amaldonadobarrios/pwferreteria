@@ -10,7 +10,7 @@ public class ConectaDB  {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			cn  = DriverManager.getConnection(
 		"jdbc:mysql://localhost:3306/dbferreteria", "root", "mauricio");
-       //         "jdbc:mysql://localhost:3306/ticsolut_dbferreteria?useInformationSchema=true&noAcccessToProcedureBodies=true", "ticsolut_root", "u9[uR)TPT[lm");
+         //       "jdbc:mysql://localhost:3306/ticsolut_dbferreteria?useInformationSchema=true&noAcccessToProcedureBodies=true", "ticsolut_root", "u9[uR)TPT[lm");
 //?useInformationSchema=true&
 		} catch (ClassNotFoundException ex) {
 			System.out.println("  ================= HIBPER-GAMA =====================");

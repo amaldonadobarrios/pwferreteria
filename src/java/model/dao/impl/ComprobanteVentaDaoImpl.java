@@ -218,7 +218,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
 
                 CallableStatement ps = cn.prepareCall(sqlResult);
                 ps.setString(1, numero);
-                ps.setInt(2, Integer.parseInt(id));
+                ps.setInt(2, Integer.parseInt(id.trim()));
                 ps.registerOutParameter(3, Types.INTEGER);
                 ps.execute();
                 // devuelve el valor del parametro de salida del procedimiento
@@ -243,7 +243,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                 }
             }
         }
-
+        System.out.println("model.dao.impl.ComprobanteVentaDaoImpl.EliminarVenta() RESULTADO DE EMIMINAR VENTA"+mensaje);
         return mensaje;
     }
 

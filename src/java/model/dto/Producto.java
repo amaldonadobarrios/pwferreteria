@@ -210,9 +210,7 @@ public class Producto {
         temp.setPv3(rs.getDouble("pv3"));
         temp.setExistencia(rs.getDouble("existencia"));
         temp.setStrexistencia(rs.getString("existencia"));
-//        Encoder code=Base64.getEncoder();
-//        String encod=code.encodeToString(rs.getBytes("foto"));
-//        temp.setStringBase64(encod);
+
         return temp;
 
     }
