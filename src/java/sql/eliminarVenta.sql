@@ -1,1 +1,1 @@
-CALL `EliminarVenta`(?,?,?);
+CALL `EliminarVenta`(?,?);

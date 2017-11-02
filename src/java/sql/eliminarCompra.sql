@@ -1,1 +1,1 @@
-CALL `EliminarCompra`(?,?,?);
+CALL `EliminarCompra`(?,?);

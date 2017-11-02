@@ -224,12 +224,12 @@ public class ComprobanteCompraDaoImpl implements ComprobanteCompraDao {
             try {
 
                 CallableStatement ps = cn.prepareCall(sqlResult);
-                ps.setString(1, numero);
-                ps.setInt(2, Integer.parseInt(id));
-                ps.registerOutParameter(3, Types.INTEGER);
+             //   ps.setString(1, numero);
+                ps.setInt(1, Integer.parseInt(id));
+                ps.registerOutParameter(2, Types.INTEGER);
                 ps.execute();
                 // devuelve el valor del parametro de salida del procedimiento
-                int resultado = ps.getInt(3);
+                int resultado = ps.getInt(2);
                 if (resultado > 0) {
 //                    cn.commit();
                     logger.info("OK");

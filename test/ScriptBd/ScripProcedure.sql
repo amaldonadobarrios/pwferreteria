@@ -1,6 +1,5 @@
 DELIMITER $$
 CREATE  PROCEDURE `EliminarCompra`(
-in numero varchar(45),
 in id int,
 out rpta int
 )
@@ -10,7 +9,7 @@ DECLARE v_id_detalle_compra int;
 DECLARE id_prod int;
 DECLARE cant DOUBLE default 0;
 DECLARE v_existencia double default 0;
-DECLARE cur1 CURSOR FOR SELECT id_detalle_comprobante_compra,id_producto,cantidad FROM detalle_comprobante_compra where numero_comprobante=numero and estado='COMPRADO';
+DECLARE cur1 CURSOR FOR SELECT id_detalle_comprobante_compra,id_producto,cantidad FROM detalle_comprobante_compra where id_comprobante=id and estado='COMPRADO';
 DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin=1;
 /*Handler para error SQL*/ 
 DECLARE EXIT HANDLER FOR SQLEXCEPTION 
@@ -39,7 +38,7 @@ OPEN cur1;
     UPDATE detalle_comprobante_compra SET estado ='ELIMINADO'  WHERE id_detalle_comprobante_compra=v_id_detalle_compra;
   END LOOP;
  CLOSE cur1;
- UPDATE comprobante_compra set estado='ELIMINADO' where id_comprobante=id and numero_comprobante=numero;
+ UPDATE comprobante_compra set estado='ELIMINADO' where id_comprobante=id;
 /*Fin de transaccion*/ 
 COMMIT; 
 /*Mandamos 1 si todo salio bien*/ 
@@ -151,7 +150,6 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE  PROCEDURE `EliminarVenta`(
-in numero varchar(45),
 in id int,
 out rpta int
 )
@@ -161,7 +159,7 @@ DECLARE v_id_detalle_venta int;
 DECLARE id_prod int;
 DECLARE cant double default 0;
 DECLARE v_existencia double default 0;
-DECLARE cur1 CURSOR FOR SELECT id_detalle_comprobante_venta,id_producto,cantidad FROM detalle_comprobante_venta where numero_comprobante=numero and estado='VENDIDO';
+DECLARE cur1 CURSOR FOR SELECT id_detalle_comprobante_venta,id_producto,cantidad FROM detalle_comprobante_venta where id_comprobante=id and estado='VENDIDO';
 DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin=1;
 /*Handler para error SQL*/ 
 DECLARE EXIT HANDLER FOR SQLEXCEPTION 
@@ -190,7 +188,7 @@ OPEN cur1;
     UPDATE detalle_comprobante_venta SET estado ='ELIMINADO'  WHERE id_detalle_comprobante_venta=v_id_detalle_venta;
   END LOOP;
  CLOSE cur1;
- UPDATE comprobante_venta set estado='ELIMINADO' where id_comprobante=id and numero_comprobante=numero;
+ UPDATE comprobante_venta set estado='ELIMINADO' where id_comprobante=id;
 /*Fin de transaccion*/ 
 COMMIT; 
 /*Mandamos 1 si todo salio bien*/ 
@@ -505,6 +503,6 @@ DELIMITER ;
 DELIMITER $$
 CREATE  PROCEDURE `select_producto`()
 BEGIN
-SELECT * FROM `producto`;
+SELECT * FROM producto;
 END$$
 DELIMITER ;
