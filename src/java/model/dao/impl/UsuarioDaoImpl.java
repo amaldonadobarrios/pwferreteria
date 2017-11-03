@@ -121,7 +121,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 ps.setInt(9, usuario.getUsuarioMod());
                 ps.setInt(10, usuario.getPerfil().getIdperfil());
                 ps.setInt(11, usuario.getIdUsuario());
-
+                System.out.println("model.dao.impl.UsuarioDaoImpl.actualizarUsuario()  PS "+ps.toString());
                 int i = ps.executeUpdate();
                 if (i > 0) {
                     cn.commit();
