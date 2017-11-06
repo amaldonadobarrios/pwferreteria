@@ -1,50 +1,3 @@
-CREATE TABLE `usuario_historial` (
-  `id_usuario` int(11) NOT NULL,
-  `usuario` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `dni` varchar(45) NOT NULL,
-  `apellido_paterno` varchar(45) NOT NULL,
-  `apellido_materno` varchar(45) DEFAULT NULL,
-  `nombres` varchar(45) DEFAULT NULL,
-  `telefono` varchar(45) DEFAULT NULL,
-  `estado` varchar(2) NOT NULL,
-  `fecha_reg` date DEFAULT NULL,
-  `fecha_mod` date DEFAULT NULL,
-  `usuario_mod` int(11) DEFAULT NULL,
-  `usuario_reg` int(11) DEFAULT NULL,
-  `perfil_idperfil` int(11) NOT NULL,
-  `fecha_reg_trigger` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `cliente_historial` (
-  `id_cliente` int(11) NOT NULL,
-  `naturaleza_cliente` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `id_tipo_cliente` int(11) NOT NULL,
-  `dni_ruc` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `razon_social` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `nombre` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `apellido_paterno` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `apellido_materno` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `telefono` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `direccion` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `email` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `usuario_reg` int(11) DEFAULT NULL,
-  `usuario_mod` int(11) DEFAULT NULL,
-  `fecha_reg` date DEFAULT NULL,
-  `fecha_mod` date DEFAULT NULL,
-  `fecha_reg_trigger` datetime DEFAULT NULL,
-  PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='tabla de clientes';
-
-
-
-
-
-
-
-
-
-
 DELIMITER $$
  CREATE  TRIGGER trgClienteinsert
 BEFORE insert ON cliente 
@@ -145,6 +98,480 @@ BEGIN
     NEW.usuario_reg,
     NEW.perfil_idperfil,
     now());
+END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgProductoinsert
+BEFORE insert ON producto 
+FOR EACH ROW
+BEGIN
+   INSERT INTO producto_historial
+    VALUE (
+    NEW.id_producto,
+    NEW.descripcion,
+    NEW.marca,
+    NEW.presentacion,
+    NEW.medida,
+    NEW.producto_insumo,
+    NEW.pv1,
+    NEW.pv2,
+    NEW.pv3,
+    NEW.existencia,
+    NEW.type,
+    NEW.estado,
+    NEW.fecha_reg,
+    NEW.fecha_mod,
+    NEW.usuario_reg,
+    NEW.usuario_mod,
+    now());
+END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgProductoupdate
+BEFORE update ON producto 
+FOR EACH ROW
+BEGIN
+   INSERT INTO producto_historial
+    VALUE (
+    NEW.id_producto,
+    NEW.descripcion,
+    NEW.marca,
+    NEW.presentacion,
+    NEW.medida,
+    NEW.producto_insumo,
+    NEW.pv1,
+    NEW.pv2,
+    NEW.pv3,
+    NEW.existencia,
+    NEW.type,
+    NEW.estado,
+    NEW.fecha_reg,
+    NEW.fecha_mod,
+    NEW.usuario_reg,
+    NEW.usuario_mod,
+    now());
+END;
+$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgregla_produccioninsert
+BEFORE insert ON regla_produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO regla_produccion_historial
+    VALUE (
+
+NEW.id_regla,
+    NEW.id_producto,
+    NEW.cantidad_insumo,
+    NEW.fecha_reg,
+    NEW.fecha_mod,
+    NEW.usuario_reg,
+    NEW.usuario_mod,
+    NEW.estado,
+    NOW());
+    END;
+$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgregla_produccionupdate
+BEFORE update ON regla_produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO regla_produccion_historial
+    VALUE (
+
+NEW.id_regla,
+    NEW.id_producto,
+    NEW.cantidad_insumo,
+    NEW.fecha_reg,
+    NEW.fecha_mod,
+    NEW.usuario_reg,
+    NEW.usuario_mod,
+    NEW.estado,
+    NOW());
+    END;
+$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgproduccioninsert
+BEFORE insert ON produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO produccion_historial
+    VALUE (
+	NEW.id_produccion,
+    NEW.fecha_reg,
+    NEW.fecha,
+    NEW.usuario_reg,
+    NEW.doc,
+    NEW.numero,
+    NEW.cantidad_reglas,
+    NEW.estado,
+   now());
+    END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgproduccionupdate
+BEFORE update ON produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO produccion_historial
+    VALUE (
+	NEW.id_produccion,
+    NEW.fecha_reg,
+    NEW.fecha,
+    NEW.usuario_reg,
+    NEW.doc,
+    NEW.numero,
+    NEW.cantidad_reglas,
+    NEW.estado,
+   now());
+    END;
+$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_regla_produccioninsert
+BEFORE insert ON detalle_regla_produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_regla_produccion_historial
+    VALUE (
+	NEW.id_detalle_regla,
+	NEW.id_producto,
+    NEW.id_regla,
+    NEW.id_insumo,
+    NEW.cantidad,
+    NEW.fecha_reg,
+    NEW.fecha_mod,
+    NEW.usuario_reg,
+    NEW.usuario_mod,
+    NEW.estado,
+	NOW());
+    END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_regla_produccionupdate
+BEFORE update ON detalle_regla_produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_regla_produccion_historial
+    VALUE (
+	NEW.id_detalle_regla,
+	NEW.id_producto,
+    NEW.id_regla,
+    NEW.id_insumo,
+    NEW.cantidad,
+    NEW.fecha_reg,
+    NEW.fecha_mod,
+    NEW.usuario_reg,
+    NEW.usuario_mod,
+    NEW.estado,
+	NOW());
+    END;
+$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_produccioninsert
+BEFORE insert ON detalle_produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_produccion_historial
+    VALUE (
+	NEW.id_detalle_produccion,
+    NEW.id_produccion,
+    NEW.id_regla,
+    NEW.id_producto,
+    NEW.cantidad_insumos,
+    NEW.cantidad_produccion,
+    NEW.fecha_reg,
+    NEW.estado,
+	NOW());
+    END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_produccionupdate
+BEFORE update ON detalle_produccion
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_produccion_historial
+    VALUE (
+	NEW.id_detalle_produccion,
+    NEW.id_produccion,
+    NEW.id_regla,
+    NEW.id_producto,
+    NEW.cantidad_insumos,
+    NEW.cantidad_produccion,
+    NEW.fecha_reg,
+    NEW.estado,
+	NOW());
+    END;
+$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_comprobante_ventainsert
+BEFORE insert ON detalle_comprobante_venta
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_comprobante_venta_historial
+    VALUE (
+	NEW.id_detalle_comprobante_venta,
+    NEW.numero_detalle,
+    NEW.numero_comprobante,
+    NEW.id_producto,
+    NEW.cantidad,
+    NEW.precio,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.estado,
+    NEW.id_comprobante,
+	NOW());
+    END;
+$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_comprobante_ventaupdate
+BEFORE update ON detalle_comprobante_venta
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_comprobante_venta_historial
+    VALUE (
+	NEW.id_detalle_comprobante_venta,
+    NEW.numero_detalle,
+    NEW.numero_comprobante,
+    NEW.id_producto,
+    NEW.cantidad,
+    NEW.precio,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.estado,
+    NEW.id_comprobante,
+	NOW());
+    END;
+$$
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgdescuento_produccionupdate
+BEFORE update ON descuento_produccion 
+FOR EACH ROW
+BEGIN
+   INSERT INTO descuento_produccion_historial
+    VALUE (
+    NEW.id_produccion,
+    NEW.id_insumo,
+    NEW.requerimiento,
+    NEW.existencias,
+    NEW.inventario,
+    NEW.fecha_reg,
+NOW());
+END;
+$$
+
+DELIMITER ;
+DELIMITER $$
+ CREATE  TRIGGER trgdescuento_produccioninsert
+BEFORE insert ON descuento_produccion 
+FOR EACH ROW
+BEGIN
+   INSERT INTO descuento_produccion_historial
+    VALUE (
+    NEW.id_produccion,
+    NEW.id_insumo,
+    NEW.requerimiento,
+    NEW.existencias,
+    NEW.inventario,
+    NEW.fecha_reg,
+NOW());
+END;
+$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgcomprobante_ventaupdate
+BEFORE update ON comprobante_venta 
+FOR EACH ROW
+BEGIN
+   INSERT INTO comprobante_venta_historial
+    VALUE (
+    NEW.id_comprobante,
+    NEW.numero_comprobante,
+    NEW.tipo,
+    NEW.fecha,
+    NEW.id_cliente,
+    NEW.estado,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.total,
+    NEW.igv,
+    NEW.neto,
+    NEW.items,
+NOW());
+END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgcomprobante_ventainsert
+BEFORE insert ON comprobante_venta 
+FOR EACH ROW
+BEGIN
+   INSERT INTO comprobante_venta_historial
+    VALUE (
+    NEW.id_comprobante,
+    NEW.numero_comprobante,
+    NEW.tipo,
+    NEW.fecha,
+    NEW.id_cliente,
+    NEW.estado,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.total,
+    NEW.igv,
+    NEW.neto,
+    NEW.items,
+NOW());
+END;
+$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_comprobante_compraupdate
+BEFORE update ON detalle_comprobante_compra 
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_comprobante_compra_historial
+    VALUE (
+NEW.id_detalle_comprobante_compra,
+    NEW.numero_detalle,
+    NEW.numero_comprobante,
+    NEW.id_producto,
+    NEW.cantidad,
+    NEW.subtotal,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.estado,
+    NEW.id_comprobante,
+    NOW());
+END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgdetalle_comprobante_comprainsert
+BEFORE insert ON detalle_comprobante_compra 
+FOR EACH ROW
+BEGIN
+   INSERT INTO detalle_comprobante_compra_historial
+    VALUE (
+NEW.id_detalle_comprobante_compra,
+    NEW.numero_detalle,
+    NEW.numero_comprobante,
+    NEW.id_producto,
+    NEW.cantidad,
+    NEW.subtotal,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.estado,
+    NEW.id_comprobante,
+    NOW());
+END;
+$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+ CREATE  TRIGGER trgcomprobante_compraupdate
+BEFORE update ON comprobante_compra 
+FOR EACH ROW
+BEGIN
+   INSERT INTO comprobante_compra_historial
+    VALUE (
+    NEW.id_comprobante,
+    NEW.numero_comprobante,
+    NEW.tipo,
+    NEW.fecha,
+    NEW.id_proveedor,
+    NEW.estado,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.total,
+    NEW.igv,
+    NEW.neto,
+    NEW.items,
+NOW());
+END;
+$$
+
+DELIMITER ;
+
+DELIMITER $$
+ CREATE  TRIGGER trgcomprobante_comprainsert
+BEFORE insert ON comprobante_compra 
+FOR EACH ROW
+BEGIN
+   INSERT INTO comprobante_compra_historial
+    VALUE (
+    NEW.id_comprobante,
+    NEW.numero_comprobante,
+    NEW.tipo,
+    NEW.fecha,
+    NEW.id_proveedor,
+    NEW.estado,
+    NEW.id_usuario,
+    NEW.fecha_reg,
+    NEW.total,
+    NEW.igv,
+    NEW.neto,
+    NEW.items,
+NOW());
 END;
 $$
 

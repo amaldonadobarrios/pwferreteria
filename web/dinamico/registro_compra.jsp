@@ -204,7 +204,7 @@
     swal({
     type: 'success',
             title: titulo,
-            text: mensaje + ' Venta :' + rpta + ' REGISTRADA ',
+            text: mensaje + ' Compra :' + rpta + ' REGISTRADA ',
             showConfirmButton: true,
     });
     }
