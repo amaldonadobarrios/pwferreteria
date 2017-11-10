@@ -64,7 +64,7 @@ join usuario d on id_usuario=a.usuario_reg
 		</band>
 	</title>
 	<pageHeader>
-		<band height="199" splitType="Stretch">
+		<band height="328" splitType="Stretch">
 			<textField>
 				<reportElement x="296" y="49" width="100" height="20"/>
 				<textElement/>
@@ -108,7 +108,7 @@ join usuario d on id_usuario=a.usuario_reg
 				<text><![CDATA[INSUMOS DESCONTADOS]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="123" width="555" height="76"/>
+				<reportElement x="0" y="123" width="555" height="205"/>
 				<subreportParameter name="Subid_produccion">
 					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -159,7 +159,7 @@ join usuario d on id_usuario=a.usuario_reg
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="26" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField>
 				<reportElement x="6" y="3" width="100" height="20"/>
 				<textElement verticalAlignment="Middle"/>

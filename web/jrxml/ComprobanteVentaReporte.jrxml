@@ -11,7 +11,7 @@
 	<parameter name="in_estado" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.Object"/>
 	<queryString>
-		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, DATE_FORMAT(a.fecha_reg, "%d/%m/%Y"), a.id_usuario, a.estado, a.id_cliente,FORMAT(a.total,2),FORMAT(a.igv,2),FORMAT(a.neto,2),b.id_producto, FORMAT(b.cantidad,2) ,FORMAT(b.precio, 2),b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
+		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, DATE_FORMAT(a.fecha, "%d/%m/%Y"), a.id_usuario, a.estado, a.id_cliente,FORMAT(a.total,2),FORMAT(a.igv,2),FORMAT(a.neto,2),b.id_producto, FORMAT(b.cantidad,2) ,FORMAT(b.precio, 2),b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
 d.descripcion,d.marca,d.presentacion,d.medida, cast(b.cantidad*b.precio as decimal) as srtsubtotal
 FROM comprobante_venta a 
 INNER JOIN detalle_comprobante_venta b on (a.numero_comprobante = b.numero_comprobante) and (a.id_comprobante=b.id_comprobante)
@@ -21,7 +21,7 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 	<field name="id_comprobante" class="java.lang.Integer"/>
 	<field name="numero_comprobante" class="java.lang.String"/>
 	<field name="tipo" class="java.lang.String"/>
-	<field name="DATE_FORMAT(a.fecha_reg, &quot;%d/%m/%Y&quot;)" class="java.lang.String"/>
+	<field name="DATE_FORMAT(a.fecha, &quot;%d/%m/%Y&quot;)" class="java.lang.String"/>
 	<field name="id_usuario" class="java.lang.Integer"/>
 	<field name="estado" class="java.lang.String"/>
 	<field name="id_cliente" class="java.lang.Integer"/>
@@ -207,7 +207,7 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 			<textField>
 				<reportElement x="348" y="93" width="104" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATE_FORMAT(a.fecha_reg, "%d/%m/%Y")}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATE_FORMAT(a.fecha, "%d/%m/%Y")}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
