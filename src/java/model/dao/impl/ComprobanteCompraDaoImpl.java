@@ -363,6 +363,7 @@ public class ComprobanteCompraDaoImpl implements ComprobanteCompraDao {
                         temp.setStrigv(rs.getString("igv"));
                         temp.setStrneto(rs.getString("neto"));
                         temp.setStrtotal(rs.getString("total"));
+                        temp.setFecha(rs.getString("fecha"));
                         listTemp.add(temp);
                     }
                 }

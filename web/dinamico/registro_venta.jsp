@@ -71,6 +71,7 @@
     var total = $("#total").val();
     var igv = $("#igv").val();
     var neto = $("#neto").val();
+    var fecha = $("#fechaventa").val();
     confirmar = confirm("¿Desea Registrar la Venta?");
     if (confirmar) {
     if (validarventa()) {
@@ -82,7 +83,8 @@
             id_cliente: idcli,
             total: total,
             igv: igv,
-            neto:neto
+            neto:neto,
+            fechaventa:fecha
     };
     fn_registrarVentaAjax(jdatos);
     }
@@ -93,7 +95,13 @@
     var num = $("#numero").val();
     var idcli = $("#txtidcliente").val();
     var total = $("#total").val();
+    var fecha = $("#fechaventa").val();
     var val = true;
+    if (fecha == '') {
+
+    mensaje('ERROR', 'SELECCIONE UNA FECHA DE VENTA');
+    val = false;
+    }
     if (doc == '') {
 
     mensaje('ERROR', 'SELECCIONE UN COMPROBANTE');
@@ -659,6 +667,18 @@
                             <input type="text" id="numero" name="numero" placeholder="Número de comprobante" onkeypress="return solo_numeros(event)" class="col-xs-10 col-sm-9" />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Fecha Venta</label>
+                        <div class="col-sm-9">
+                            <div class="input-group col-sm-12">
+                                <input class="form-control date-picker" id="fechaventa" name="fechaventa" type="text" data-date-format="yyyy-mm-dd"/>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar bigger-110"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Fecha</label>
                         <div class="col-sm-9">

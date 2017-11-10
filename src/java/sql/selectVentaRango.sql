@@ -1,1 +1,1 @@
-SELECT * FROM comprobante_venta where fecha_reg BETWEEN ? AND ? and estado='VENDIDO' order by fecha_reg desc;
+SELECT * FROM comprobante_venta where fecha BETWEEN ? AND ? and estado='VENDIDO' order by fecha  desc;

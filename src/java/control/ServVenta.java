@@ -343,6 +343,7 @@ public class ServVenta extends HttpServlet {
         String total = request.getParameter("total");
         String igv = request.getParameter("igv");
         String neto = request.getParameter("neto");
+        String fechaventa = request.getParameter("fechaventa");
         List<ListaVenta> listatemp = new ArrayList<ListaVenta>();
         List<ListaVenta> lista = new ArrayList<ListaVenta>();
         try {
@@ -405,6 +406,7 @@ public class ServVenta extends HttpServlet {
             venta.setIgv(Double.parseDouble(igv));
             venta.setTotal(Double.parseDouble(total));
             venta.setNeto(Double.parseDouble(neto));
+            venta.setFecha(fechaventa);
         }
         String respuesta = LogicVenta.getInstance().grabarVenta(venta);
         // verreporte(response,respuesta);

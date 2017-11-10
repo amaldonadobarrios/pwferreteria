@@ -44,13 +44,14 @@ public class ComprobanteVenta {
         this.tipo = tipo;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
 
     public int getId_cliente() {
         return id_cliente;
@@ -156,7 +157,7 @@ public class ComprobanteVenta {
     private int id_comprobante;
     private String numero_comprobante;
     private String tipo;
-    private Date fecha;
+    private String fecha;
     private int id_cliente;
     private String estado;
     private int id_usuario;

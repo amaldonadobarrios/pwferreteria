@@ -40,7 +40,7 @@ CREATE TABLE `comprobante_venta_historial` (
   `id_comprobante` int(11) NOT NULL,
   `numero_comprobante` varchar(45) NOT NULL,
   `tipo` varchar(45) DEFAULT NULL,
-  `fecha` datetime DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
   `id_cliente` int(11) DEFAULT NULL,
   `estado` varchar(45) DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,

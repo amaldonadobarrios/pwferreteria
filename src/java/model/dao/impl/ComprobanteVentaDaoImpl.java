@@ -65,10 +65,11 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                 ps.setDouble(9, venta.getTotal());
                 ps.setDouble(10, venta.getIgv());
                 ps.setDouble(11, venta.getNeto());
-                ps.registerOutParameter(12, Types.INTEGER);
+                ps.setString(12, venta.getFecha());
+                ps.registerOutParameter(13, Types.INTEGER);
                 ps.execute();
                 // devuelve el valor del parametro de salida del procedimiento
-                int resultado = ps.getInt(12);
+                int resultado = ps.getInt(13);
                 if (resultado > 0) {
 //                    cn.commit();
                     logger.info("OK");
@@ -178,6 +179,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                         temp.setStrigv(rs.getString("igv"));
                         temp.setStrneto(rs.getString("neto"));
                         temp.setStrtotal(rs.getString("total"));
+                        temp.setFecha(rs.getString("fecha"));
                         listTemp.add(temp);
                     }
                 }
@@ -292,6 +294,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                         temp.setStrigv(rs.getString("igv"));
                         temp.setStrneto(rs.getString("neto"));
                         temp.setStrtotal(rs.getString("total"));
+                        temp.setFecha(rs.getString("fecha"));
                         listTemp.add(temp);
                     }
                 }
@@ -355,6 +358,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                         temp.setStrigv(rs.getString("igv"));
                         temp.setStrneto(rs.getString("neto"));
                         temp.setStrtotal(rs.getString("total"));
+                        temp.setFecha(rs.getString("fecha"));
                         listTemp.add(temp);
                     }
                 }

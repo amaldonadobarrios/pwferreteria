@@ -457,6 +457,7 @@ in registros int,
 in total DOUBLE,
 in igv DOUBLE,
 in neto DOUBLE,
+in fechaventa varchar(45),
 out rpta int)
 BEGIN
 DECLARE v1 INT DEFAULT 1;
@@ -482,7 +483,7 @@ END;
 /*Inicia transaccion*/ 
 START TRANSACTION; 
 /*Primer INSERT datos ACTA*/ 
-INSERT INTO comprobante_venta (numero_comprobante,tipo,fecha,id_cliente,estado,id_usuario,fecha_reg,total,igv,neto,items) VALUES(numero,tipocomprobante,now(),cliente,'VENDIDO',usuario,now(),total,igv, neto,registros);
+INSERT INTO comprobante_venta (numero_comprobante,tipo,fecha,id_cliente,estado,id_usuario,fecha_reg,total,igv,neto,items) VALUES(numero,tipocomprobante,fechaventa,cliente,'VENDIDO',usuario,now(),total,igv, neto,registros);
 SET v_id_comprobante =(SELECT LAST_INSERT_ID());
 /*SECOND INSERT datos ACTA*/ 
 WHILE v1 <= registros DO

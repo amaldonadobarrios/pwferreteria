@@ -128,7 +128,7 @@
                                 <c:forEach var="venta" items="${listaVenta}" varStatus="loop">
                                     <tr>
                                         <td class="center">  ${loop.count} </td>
-                                        <td> ${venta.numero_comprobante}  ${venta.fecha_reg}</td>
+                                        <td> ${venta.numero_comprobante}  ${venta.fecha}</td>
                                         <td> ${venta.cantProductos} </td>
                                         <td> ${venta.strneto} </td>
                                         <td> ${venta.strigv} </td>

@@ -80,7 +80,7 @@
                                 <c:forEach var="compra" items="${listacomprarango}" varStatus="loop">
                                     <tr>
                                         <td class="center">  ${loop.count} </td>
-                                        <td> ${compra.numero_comprobante}  ${compra.fecha_reg}</td>
+                                        <td> ${compra.numero_comprobante}  ${compra.fecha}</td>
                                         <td> ${compra.cantProductos} </td>
                                         <td> ${compra.strneto} </td>
                                         <td> ${compra.strigv} </td>
