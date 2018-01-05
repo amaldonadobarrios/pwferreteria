@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobante" pageWidth="496" pageHeight="651" columnWidth="456" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.9487171000000139"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="108"/>
 	<parameter name="tipo_documento" class="java.lang.String"/>
 	<parameter name="tipo_comprobante" class="java.lang.String"/>
 	<parameter name="id" class="java.lang.String">
@@ -11,7 +11,7 @@
 	<parameter name="in_estado" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.Object"/>
 	<queryString>
-		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, DATE_FORMAT(a.fecha, "%d/%m/%Y"), a.id_usuario, a.estado, a.id_cliente,FORMAT(a.total,2),FORMAT(a.igv,2),FORMAT(a.neto,2),b.id_producto, FORMAT(b.cantidad,2) ,FORMAT(b.precio, 2),b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
+		<![CDATA[SELECT a.id_comprobante,a.numero_comprobante,a.tipo, DATE_FORMAT(a.fecha, "%d/%m/%Y"), a.id_usuario, a.estado,a.medio_pago, a.id_cliente,FORMAT(a.total,2),FORMAT(a.igv,2),FORMAT(a.neto,2),b.id_producto, FORMAT(b.cantidad,2) ,FORMAT(b.precio, 2),b.cantidad*b.precio as subtotal,c.apellido_paterno, c.apellido_materno, c.nombres, c.razon_social, c.dni_ruc, c.direccion,
 d.descripcion,d.marca,d.presentacion,d.medida, cast(b.cantidad*b.precio as decimal) as srtsubtotal
 FROM comprobante_venta a 
 INNER JOIN detalle_comprobante_venta b on (a.numero_comprobante = b.numero_comprobante) and (a.id_comprobante=b.id_comprobante)
@@ -24,6 +24,7 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 	<field name="DATE_FORMAT(a.fecha, &quot;%d/%m/%Y&quot;)" class="java.lang.String"/>
 	<field name="id_usuario" class="java.lang.Integer"/>
 	<field name="estado" class="java.lang.String"/>
+	<field name="medio_pago" class="java.lang.String"/>
 	<field name="id_cliente" class="java.lang.Integer"/>
 	<field name="FORMAT(a.total,2)" class="java.lang.String"/>
 	<field name="FORMAT(a.igv,2)" class="java.lang.String"/>
@@ -421,6 +422,18 @@ LEFT JOIN producto d on (b.id_producto = d.id_producto) where a.numero_comproban
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{FORMAT(a.neto,2)}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="21" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[MEDIO DE PAGO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="93" y="22" width="196" height="19"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{medio_pago}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

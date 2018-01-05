@@ -56,7 +56,7 @@ public class ProductoDaoImpl implements ProductoDao {
                 ps.setString(1, pro.getDescripcion().toUpperCase());
                 ps.setString(2, pro.getMarca().toUpperCase());
                 ps.setString(3, pro.getPresentacion().toUpperCase());
-                ps.setString(4, pro.getMedida().toUpperCase());
+                ps.setString(4, pro.getMedida());
                 ps.setBytes(5, pro.getFoto());
                 ps.setInt(6, pro.getUsuario_reg());
                 ps.setString(7, pro.getType());

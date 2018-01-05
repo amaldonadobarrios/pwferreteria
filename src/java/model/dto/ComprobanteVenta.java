@@ -174,7 +174,15 @@ public class ComprobanteVenta {
     private String strigv;
     private String strneto;
     private String strcantidad;
+    private String medio;
 
+    public String getMedio() {
+        return medio;
+    }
+
+    public void setMedio(String medio) {
+        this.medio = medio;
+    }
     public String getStrcantidad() {
         return strcantidad;
     }

@@ -44,6 +44,13 @@ public class LogicVenta {
         return respuesta;
     }
 
+    public String PagarVenta(String numero, String id) throws Exception {
+        String respuesta=null;
+        ComprobanteVentaDao dao=new ComprobanteVentaDaoImpl();
+        respuesta=dao.PagarVenta(numero,id);
+        return respuesta;
+    }
+
     private static class LogicVentaHolder {
 
         private static final LogicVenta INSTANCE = new LogicVenta();

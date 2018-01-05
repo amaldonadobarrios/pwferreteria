@@ -66,10 +66,11 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                 ps.setDouble(10, venta.getIgv());
                 ps.setDouble(11, venta.getNeto());
                 ps.setString(12, venta.getFecha());
-                ps.registerOutParameter(13, Types.INTEGER);
+                ps.setString(13, venta.getMedio());
+                ps.registerOutParameter(14, Types.INTEGER);
                 ps.execute();
                 // devuelve el valor del parametro de salida del procedimiento
-                int resultado = ps.getInt(13);
+                int resultado = ps.getInt(14);
                 if (resultado > 0) {
 //                    cn.commit();
                     logger.info("OK");
@@ -180,6 +181,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                         temp.setStrneto(rs.getString("neto"));
                         temp.setStrtotal(rs.getString("total"));
                         temp.setFecha(rs.getString("fecha"));
+                        temp.setMedio(rs.getString("medio_pago"));
                         listTemp.add(temp);
                     }
                 }
@@ -295,6 +297,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                         temp.setStrneto(rs.getString("neto"));
                         temp.setStrtotal(rs.getString("total"));
                         temp.setFecha(rs.getString("fecha"));
+                        temp.setMedio(rs.getString("medio_pago"));
                         listTemp.add(temp);
                     }
                 }
@@ -359,6 +362,7 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
                         temp.setStrneto(rs.getString("neto"));
                         temp.setStrtotal(rs.getString("total"));
                         temp.setFecha(rs.getString("fecha"));
+                        temp.setMedio(rs.getString("medio_pago"));
                         listTemp.add(temp);
                     }
                 }
@@ -426,5 +430,55 @@ public class ComprobanteVentaDaoImpl implements ComprobanteVentaDao {
             }
         }
         return listTemp;
+    }
+
+    @Override
+    public String PagarVenta(String numero, String id) throws Exception {
+        String mensaje = null;
+        String sqlResult = "";
+
+        try {
+            cn = db.getConnection();
+            sqlResult = uti.getLocalResource("/sql/PagarVenta.sql");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new Exception("Problemas del sistema...");
+        } catch (Throwable ex) {
+            logger.error(ex);
+        }
+
+        if (cn != null) {
+
+            try {
+
+                CallableStatement ps = cn.prepareCall(sqlResult);
+//                ps.setString(1, numero);
+                ps.setInt(1, Integer.parseInt(id.trim()));
+                ps.registerOutParameter(2, Types.INTEGER);
+                ps.execute();
+                // devuelve el valor del parametro de salida del procedimiento
+                int resultado = ps.getInt(2);
+                if (resultado > 0) {
+//                    cn.commit();
+                    logger.info("OK");
+                    mensaje = "OK";
+                } else {
+                    //cn.rollback();
+                    mensaje = "NO OK";
+                }
+
+            } catch (SQLException e) {
+                logger.error(e);
+                throw new Exception("Problemas del sistema...");
+            } finally {
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    logger.error(ex);
+                }
+            }
+        }
+        System.out.println("model.dao.impl.ComprobanteVentaDaoImpl.EliminarVenta() RESULTADO DE PAGAR VENTA"+mensaje);
+        return mensaje;
     }
 }

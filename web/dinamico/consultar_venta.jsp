@@ -4,11 +4,40 @@
 <script>
     //BUSCAR VENTA
     function fn_buscar(fecha) {
-       if (fecha !== '') {
-            location.replace("SMenu?action=pageConsultarVenta&fecha="+fecha);
+        if (fecha !== '') {
+            location.replace("SMenu?action=pageConsultarVenta&fecha=" + fecha);
         }
     }
-
+//PAGAR VENTA
+function fn_pagarventa(id, estado, numero) {
+        var jdatos;
+        if (estado === 'CRÉDITO') {
+            if (confirm("ESTÁ SEGURO DE PAGAR LA VENTA REGISTRADA CON MEDIO DE PAGO CRÉDITO")) {
+                jdatos = {
+                    evento: 'PagarVentaAjax',
+                    id: id,
+                    num: numero
+                };
+                fn_PagarVentaAjax(jdatos);
+            }
+        } else if (estado === 'EFECTIVO') {
+            mensaje('Venta pagada', 'La venta ya está pagada, mediante el medio de pago efectivo');
+        }
+        else if (estado === 'CRÉDITO PAGADO') {
+            mensaje('Venta al crédito pagada', 'La venta ya está pagada, mediante el medio de pago crédito, la misma que fue Pagada');
+        }
+    }
+     function fn_PagarVentaAjax(jdatos) {
+        var vruta = '/ServVenta';
+        var vevento = 'PagarVentaAjax';
+        var jqdata = jdatos;
+        fnEjecutarPeticion(vruta, jqdata, vevento);
+    }
+    function  fn_pintaPagarVentaAjax(response) {
+        if (response === 'OK') {
+            location.replace("SMenu?action=pageConsultarVenta");
+        }
+    }
 
     //ELIMINAR VENTA
     function fn_eliminarventa(id, estado, numero) {
@@ -63,6 +92,9 @@
     function fnControlEvento(vevento, vvrespuesta) {
         if (vevento == 'EliminarVentaAjax') {
             fn_pintaEliminarVentaAjax(vvrespuesta);
+        }
+        if (vevento == 'PagarVentaAjax') {
+            fn_pintaPagarVentaAjax(vvrespuesta);
         }
     }
 </script>
@@ -133,7 +165,12 @@
                                         <td> ${venta.strneto} </td>
                                         <td> ${venta.strigv} </td>
                                         <td> ${venta.strtotal} </td>
-                                        <td>${venta.estado}
+                                        <td>${venta.estado}<br>
+                                            ${venta.medio} <c:if test = "${venta.medio=='CRÉDITO'}">
+                                                <a class="button green" style="font-size: 15px;" href="javascript:fn_pagarventa('${venta.id_comprobante}','${venta.medio}','${venta.numero_comprobante}');">
+                                                    <span class=" ace-icon fa bigger-130 fa-money"></span> PAGÓ
+                                                </a>
+                                            </c:if>
                                             <div class="hidden-sm hidden-xs action-buttons">
                                                 <a class="blue" href="ServReporte?evento=venta&estado=${venta.estado}&num=${venta.numero_comprobante}" target="_blank">
                                                     <i class="ace-icon fa fa-search-plus bigger-130"></i>
@@ -141,6 +178,8 @@
                                                 <a class="red" href="javascript:fn_eliminarventa('${venta.id_comprobante}','${venta.estado}','${venta.numero_comprobante}');">
                                                     <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                                 </a>
+
+
                                             </div>
                                         </td>
                                     </tr>

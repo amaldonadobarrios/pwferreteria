@@ -447,7 +447,8 @@ BEGIN
     NEW.igv,
     NEW.neto,
     NEW.items,
-NOW());
+NOW(),
+NEW.medio_pago);
 END;
 $$
 
@@ -472,7 +473,8 @@ BEGIN
     NEW.igv,
     NEW.neto,
     NEW.items,
-NOW());
+NOW(),
+NEW.medio_pago);
 END;
 $$
 

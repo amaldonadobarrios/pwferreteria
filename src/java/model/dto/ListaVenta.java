@@ -23,6 +23,7 @@ public class ListaVenta {
     private String presentacion;
     private String srtcantidad;
 
+
     public String getSrtsubtotal() {
         return srtsubtotal;
     }

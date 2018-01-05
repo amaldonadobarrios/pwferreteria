@@ -29,4 +29,6 @@ public interface ComprobanteVentaDao {
 
     public List<ComprobanteVenta> ListarVentasxmesxaño(String ini, String fin) throws  Exception;
 
+    public String PagarVenta(String numero, String id) throws Exception;
+
 }

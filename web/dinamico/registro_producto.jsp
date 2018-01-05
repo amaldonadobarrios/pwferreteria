@@ -81,14 +81,16 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1" id="lblmedida">Unidad de Medida</label>
                 <div class="col-sm-3">
                     <input type="hidden" id="txtmedida"  value="${objpro.medida}"/>
-                    <select class="chosen-select form-control" id="medida" name="medida" data-placeholder="Unidad de Medida" required>
+                    <select class=" form-control" id="medida" name="medida" data-placeholder="Unidad de Medida" required>
                         <option value="">Seleccione</option>
                         <option value="Unidades">Unidades</option>
                         <option value="Metro">Metro</option>
                         <option value="Metro Cuadrado(m2)">Metro Cuadrado(m2)</option>
                         <option value="Metro Cubico (m3)">Metro Cúbico (m3)</option>
                         <option value="Litro">Litro</option>
-                        <option value="Kilogramos">Kilogramos</option>
+                        <option value="Mililitro">Mililitro</option>
+                        <option value="Kilogramos">Kilogramo</option>
+                        <option value="Gramo">Gramo</option>
                     </select>
                 </div>
                 <div class="col-sm-3">   
@@ -120,7 +122,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-3 sidenav" align="center" id="divfoto" >
                         <c:if test = "${img64 !=null}">
 
@@ -133,7 +135,7 @@
                         </c:if>
                     </div>
                 </div>
-                  
+
                 <label id="mensaje" style="color: red; text-align: center;"/>
             </div>   
 
@@ -202,7 +204,7 @@
                             <td> ${producto.prod_insu}</td>
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-                                    
+
 
                                     <a class="green" href="ServProducto?evento=IrformActualizarProducto&idproducto=${producto.id_producto}" >
                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
@@ -298,21 +300,22 @@
 
 </script>
 <script>
-    document.getElementById("medida").value = document.getElementById("txtmedida").value;
-    var tipo = document.getElementById("prod_insu").value;
-    if (tipo != null) {
-        if (tipo == 'PRODUCTO') {
-            document.getElementById("chkproducto").checked = true;
-        } else if (tipo == 'INSUMO') {
-            document.getElementById("chkinsumo").checked = true;
-        } else if (tipo == 'PRODUCTO E INSUMO') {
-            document.getElementById("chkproducto").checked = true;
-            document.getElementById("chkinsumo").checked = true;
-        } else {
-            document.getElementById("chkproducto").checked = false;
-            document.getElementById("chkinsumo").checked = false;
+   
+        document.getElementById("medida").value = document.getElementById("txtmedida").value;
+        var tipo = document.getElementById("prod_insu").value;
+        if (tipo != null) {
+            if (tipo == 'PRODUCTO') {
+                document.getElementById("chkproducto").checked = true;
+            } else if (tipo == 'INSUMO') {
+                document.getElementById("chkinsumo").checked = true;
+            } else if (tipo == 'PRODUCTO E INSUMO') {
+                document.getElementById("chkproducto").checked = true;
+                document.getElementById("chkinsumo").checked = true;
+            } else {
+                document.getElementById("chkproducto").checked = false;
+                document.getElementById("chkinsumo").checked = false;
+            }
         }
-    }
 </script>
 <style>
     .checkbox label:after, 

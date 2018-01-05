@@ -67,9 +67,12 @@ public class ServVenta extends HttpServlet {
                     } else if (evento.equals("RegistrarVentaAJAX")) {
                         System.out.println("control.ServVenta.processRequest()" + "REGISTRANDO VENTA");
                         RegistrarVentaAJAX(request, response);
-                    }else if (evento.equals("EliminarVentaAjax")) {
+                    } else if (evento.equals("EliminarVentaAjax")) {
                         System.out.println("ELIMINAR VENTA");
                         EliminarVentaAjax(request, response);
+                    } else if (evento.equals("PagarVentaAjax")) {
+                        System.out.println("PAGAR VENTA");
+                        PagarVentaAjax(request, response);
                     }
 
                 }
@@ -344,6 +347,7 @@ public class ServVenta extends HttpServlet {
         String igv = request.getParameter("igv");
         String neto = request.getParameter("neto");
         String fechaventa = request.getParameter("fechaventa");
+        String medio = request.getParameter("medio");
         List<ListaVenta> listatemp = new ArrayList<ListaVenta>();
         List<ListaVenta> lista = new ArrayList<ListaVenta>();
         try {
@@ -407,6 +411,7 @@ public class ServVenta extends HttpServlet {
             venta.setTotal(Double.parseDouble(total));
             venta.setNeto(Double.parseDouble(neto));
             venta.setFecha(fechaventa);
+            venta.setMedio(medio);
         }
         String respuesta = LogicVenta.getInstance().grabarVenta(venta);
         // verreporte(response,respuesta);
@@ -418,9 +423,17 @@ public class ServVenta extends HttpServlet {
     private void EliminarVentaAjax(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String numero = request.getParameter("num");
         String id = request.getParameter("id");
-        String respuesta=null;
-        respuesta=LogicVenta.getInstance().eliminarVenta(numero,id);
-         HtmlUtil.getInstance().escrituraHTML(response, respuesta); 
+        String respuesta = null;
+        respuesta = LogicVenta.getInstance().eliminarVenta(numero, id);
+        HtmlUtil.getInstance().escrituraHTML(response, respuesta);
+    }
+
+    private void PagarVentaAjax(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String numero = request.getParameter("num");
+        String id = request.getParameter("id");
+        String respuesta = null;
+        respuesta = LogicVenta.getInstance().PagarVenta(numero, id);
+        HtmlUtil.getInstance().escrituraHTML(response, respuesta);
     }
 
 }

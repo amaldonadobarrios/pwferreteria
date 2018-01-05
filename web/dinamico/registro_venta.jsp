@@ -72,6 +72,7 @@
     var igv = $("#igv").val();
     var neto = $("#neto").val();
     var fecha = $("#fechaventa").val();
+    var medio= $("#cbxmedio").val();
     confirmar = confirm("¿Desea Registrar la Venta?");
     if (confirmar) {
     if (validarventa()) {
@@ -84,7 +85,8 @@
             total: total,
             igv: igv,
             neto:neto,
-            fechaventa:fecha
+            fechaventa:fecha,
+            medio:medio
     };
     fn_registrarVentaAjax(jdatos);
     }
@@ -96,6 +98,7 @@
     var idcli = $("#txtidcliente").val();
     var total = $("#total").val();
     var fecha = $("#fechaventa").val();
+    var medio= $("#cbxmedio").val();
     var val = true;
     if (fecha == '') {
 
@@ -125,6 +128,11 @@
     if (total == '0.00') {
 
     mensaje('ERROR', 'NO HA REGISTRADO PRODUCTOS');
+    val = false;
+    }
+    if (medio == '') {
+
+    mensaje('ERROR', 'SELECCIONE UN MEDIO DE PAGO');
     val = false;
     }
     return val;
@@ -678,7 +686,16 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Medio de Pago</label>
+                        <div class="col-sm-9">
+                            <select class="chosen-select form-control col-xs-10 col-sm-8" id="cbxmedio" name="cbxmedio"   data-placeholder="medio de pago">
+                                <option value="">Seleccione</option>
+                                <option value="EFECTIVO">Efectivo</option>
+                                <option value="CRÉDITO">Crédito</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Fecha</label>
                         <div class="col-sm-9">

@@ -86,6 +86,7 @@ CREATE TABLE `comprobante_venta` (
   `igv` double NOT NULL,
   `neto` double NOT NULL,
   `items` int(11) NOT NULL,
+  `medio_pago` varchar(45) NOT NULL,
   PRIMARY KEY (`id_comprobante`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -102,7 +103,8 @@ CREATE TABLE `comprobante_venta_historial` (
   `igv` double NOT NULL,
   `neto` double NOT NULL,
   `items` int(11) NOT NULL,
-  `fecha_reg_trigger` datetime DEFAULT NULL
+  `fecha_reg_trigger` datetime DEFAULT NULL,
+`medio_pago` varchar(45) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `descuento_produccion` (
